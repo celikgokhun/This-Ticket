@@ -3,9 +3,22 @@ package com.celik.gokhun.obilet.thisticket.model
 import com.google.gson.annotations.SerializedName
 
 data class SessionData(
-    @SerializedName("device-id")
-    val deviceId: String,
 
     @SerializedName("session-id")
-    val sessionId: String
+    val sessionDataSessionId: String?,
+
+    @SerializedName("device-id")
+    val sessionDataDeviceId: String?,
+
+    @SerializedName("affiliate")
+    val sessionDataAffiliate: Any?,
+
+    @SerializedName("device-type")
+    val sessionDataDeviceType: Int?,
+
+    @SerializedName("device")
+    val sessionDataDevice: Any?
+
+
+
 )

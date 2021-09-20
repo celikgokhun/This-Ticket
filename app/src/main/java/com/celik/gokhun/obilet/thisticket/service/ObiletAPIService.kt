@@ -2,8 +2,8 @@ package com.celik.gokhun.obilet.thisticket.service
 
 import com.celik.gokhun.obilet.thisticket.model.BusLocations
 import com.celik.gokhun.obilet.thisticket.model.Session
-import com.celik.gokhun.obilet.thisticket.util.Constants.API_KEY
 import com.celik.gokhun.obilet.thisticket.util.Constants.BASE_URL
+import com.celik.gokhun.obilet.thisticket.util.Constants.BODY
 import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -20,7 +20,9 @@ class ObiletAPIService {
         .create(ObiletAPI::class.java)
 
     fun getSession() : Single<Session> {
-        return api.getSession()
+        return api.getSession(
+            BODY
+        )
     }
 
     fun getBusLocations() : Single<List<BusLocations>> {

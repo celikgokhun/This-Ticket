@@ -1,19 +1,17 @@
 package com.celik.gokhun.obilet.thisticket.view
 
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 
 import com.celik.gokhun.obilet.thisticket.R
+import com.celik.gokhun.obilet.thisticket.model.BusLocations
 import com.celik.gokhun.obilet.thisticket.model.Session
 import com.celik.gokhun.obilet.thisticket.service.ObiletAPIService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
-
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,16 +23,57 @@ class MainActivity : AppCompatActivity() {
     val sessionError = MutableLiveData<Boolean>()
     val sessionLoading = MutableLiveData<Boolean>()
 
+    private val busLocationsDisposable = CompositeDisposable()
+
+    val busLocations = MutableLiveData<List<BusLocations>>()
+    val busLocationsError = MutableLiveData<Boolean>()
+    val busLocationsLoading = MutableLiveData<Boolean>()
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        refreshSessionData()
+        //refreshSessionData()
+
+        refreshBusLocationsData()
 
     }
 
+    private fun refreshBusLocationsData(){
+        getBusLocationsDataAPI()
+    }
+
+    private fun getBusLocationsDataAPI(){
+        busLocationsLoading.value =true
+
+        busLocationsDisposable.add(
+            obiletAPIService.getBusLocations()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSingleObserver<List<BusLocations>>(){
+                    override fun onSuccess(t: List<BusLocations>) {
+                        busLocations.value = t
+                        busLocationsError.value = false
+                        busLocationsLoading.value = false
+                        observeBusLocationsData()
+                        println("oldu amk cocugu")
+
+                    }
+                    override fun onError(e: Throwable) {
+                        println("olmadi amk   :  "+ e.localizedMessage )
+                        busLocationsLoading.value = false
+                        busLocationsError.value = true
+                    }
+
+                })
+        )
+    }
+
+    private fun observeBusLocationsData() {
+        println("STATUS  :   "+busLocations.value?.get(0)?.status)
+    }
 
     private fun refreshSessionData(){
         getSessionDataAPI()
@@ -53,9 +92,8 @@ class MainActivity : AppCompatActivity() {
                         session.value = t
                         sessionError.value = false
                         sessionLoading.value = false
-                        //println("halloldu")
-
                         observeSessionData()
+
                     }
 
                     override fun onError(e: Throwable) {
@@ -70,9 +108,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeSessionData(){
         println("STATUS  :   "+session.value?.sessionStatus)
-        //println("ALL   :  "+session.value)
-        //println("MESSAGES:   "+session.value?.message)
-
         println("Session Id  :   "+session.value?.sessionData?.sessionDataDeviceId)
         println(session.value?.sessionData?.sessionDataSessionId)
 

@@ -5,67 +5,73 @@ import com.google.gson.annotations.SerializedName
 data class BusLocations(
 
     @SerializedName("status")
-    val busLocationsStatus: String?,
+    val status: String?,
 
     @SerializedName("data")
-    val busLocationsData: BusLocationsData?,
+    val data: BusLocationsData?,
 
     @SerializedName("message")
-    val busLocationsMessage: String?,
+    val message: Any?,
 
     @SerializedName("user-message")
-    val busLocationsUserMessage: String?,
+    val userMessage: Any?,
 
     @SerializedName("api-request-id")
-    val busLocationsApiRequestId: String?,
+    val apiRequestId: Any?,
 
     @SerializedName("controller")
-    val busLocationsController: String?,
-)
+    val controller: String?,
+
+    @SerializedName("client-request-id")
+    val clientRequestId: Any?
+    )
 
 
 data class BusLocationsData(
     @SerializedName("id")
-    val busLocationsDataId: Int?,
+    val id: Int?,
 
     @SerializedName("parent-id")
-    val busLocationsDataParentId: Int?,
+    val parentId: Int?,
 
     @SerializedName("type")
-    val busLocationsDataType: String?,
+    val type: String?,
 
     @SerializedName("name")
-    val busLocationsDataName: String?,
+    val name: String?,
 
     @SerializedName("geo-location")
-    val busLocationsDataGeoLocation: BusLocationsDataGeoLocation?,
+    val geoLocation: BusLocationsDataGeoLocation?,
+
+    @SerializedName("zoom")
+    val zoom: Int?,
 
     @SerializedName("tz-code")
-    val busLocationsDataTimeZone: String?,
+    val timeZone: String?,
 
     @SerializedName("weather-code")
-    val busLocationsDataWeatherCode: Any?,
+    val weatherCode: Any?,
 
     @SerializedName("rank")
-    val busLocationsDataRank: Int?,
+    val rank: Any?,
 
     @SerializedName("reference-code")
-    val busLocationsDataReferenceCode: String?,
+    val referenceCode: Any?,
 
     @SerializedName("keywords")
-    val busLocationsDataKeywords: String?,
+    val keywords: String?
 
 
     )
 
 data class BusLocationsDataGeoLocation(
     @SerializedName("latitude")
-    val busLocationsDataId: Double?,
+    val latitude: Double?,
 
     @SerializedName("longitude")
-    val busLocationsDataParentId: Double?,
+    val longitude: Double?,
 
     @SerializedName("zoom")
-    val busLocationsDataType: String?,
+    val zoom: Int?
 
     )

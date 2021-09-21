@@ -33,6 +33,8 @@ android {
 
 dependencies {
 
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     def lifeCycleExtensionVersion = '1.1.1'
     def supportVersion = '28.0.0'
     def retrofitVersion = '2.3.0'
@@ -56,6 +58,9 @@ dependencies {
 
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxJavaVersion"
+
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
+
 
 
 

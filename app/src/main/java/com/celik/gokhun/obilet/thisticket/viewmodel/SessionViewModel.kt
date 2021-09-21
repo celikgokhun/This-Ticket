@@ -1,11 +1,7 @@
-package com.celik.gokhun.obilet.thisticket.view
+package com.celik.gokhun.obilet.thisticket.viewmodel
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
-
-
-import com.celik.gokhun.obilet.thisticket.R
+import androidx.lifecycle.ViewModel
 import com.celik.gokhun.obilet.thisticket.model.Session
 import com.celik.gokhun.obilet.thisticket.service.ObiletAPIService
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,8 +10,7 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
 
-class MainActivity : AppCompatActivity() {
-
+class SessionViewModel : ViewModel() {
 
     private val obiletAPIService = ObiletAPIService()
 
@@ -25,21 +20,12 @@ class MainActivity : AppCompatActivity() {
     val sessionError = MutableLiveData<Boolean>()
     val sessionLoading = MutableLiveData<Boolean>()
 
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        refreshSessionData()
-
-    }
-
     fun refreshSessionData(){
         getSessionDataAPI()
     }
 
     private fun getSessionDataAPI(){
+
         sessionLoading.value =true
 
         disposable.add(
@@ -54,7 +40,6 @@ class MainActivity : AppCompatActivity() {
                         sessionLoading.value = false
                         println("halloldu")
 
-                        observeSessionData()
                     }
 
                     override fun onError(e: Throwable) {
@@ -64,19 +49,8 @@ class MainActivity : AppCompatActivity() {
                     }
                 })
         )
-
     }
 
 
-
-
-    private fun observeSessionData(){
-        //println("STATUS:  "+session.value?.sessionStatus)
-        //println("MESSAGES:   "+session.value?.message)
-        println("ahahah :   "+session.value)
-        //println(session.value?.sessionData?.sessionId)
-        //println(session.value?.sessionData?.deviceId)
-
-    }
 
 }

@@ -26,3 +26,24 @@ data class Session(
     val sessionClientRequestId: Any?
 
 )
+
+data class SessionData(
+
+    @SerializedName("session-id")
+    val sessionDataSessionId: String?,
+
+    @SerializedName("device-id")
+    val sessionDataDeviceId: String?,
+
+    @SerializedName("affiliate")
+    val sessionDataAffiliate: Any?,
+
+    @SerializedName("device-type")
+    val sessionDataDeviceType: Int?,
+
+    @SerializedName("device")
+    val sessionDataDevice: Any?
+
+
+
+)

@@ -22,3 +22,50 @@ data class BusLocations(
     @SerializedName("controller")
     val busLocationsController: String?,
 )
+
+
+data class BusLocationsData(
+    @SerializedName("id")
+    val busLocationsDataId: Int?,
+
+    @SerializedName("parent-id")
+    val busLocationsDataParentId: Int?,
+
+    @SerializedName("type")
+    val busLocationsDataType: String?,
+
+    @SerializedName("name")
+    val busLocationsDataName: String?,
+
+    @SerializedName("geo-location")
+    val busLocationsDataGeoLocation: BusLocationsDataGeoLocation?,
+
+    @SerializedName("tz-code")
+    val busLocationsDataTimeZone: String?,
+
+    @SerializedName("weather-code")
+    val busLocationsDataWeatherCode: Any?,
+
+    @SerializedName("rank")
+    val busLocationsDataRank: Int?,
+
+    @SerializedName("reference-code")
+    val busLocationsDataReferenceCode: String?,
+
+    @SerializedName("keywords")
+    val busLocationsDataKeywords: String?,
+
+
+    )
+
+data class BusLocationsDataGeoLocation(
+    @SerializedName("latitude")
+    val busLocationsDataId: Double?,
+
+    @SerializedName("longitude")
+    val busLocationsDataParentId: Double?,
+
+    @SerializedName("zoom")
+    val busLocationsDataType: String?,
+
+    )

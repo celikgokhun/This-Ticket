@@ -1,7 +1,9 @@
 package com.celik.gokhun.obilet.thisticket.service
 
+import androidx.annotation.Nullable
 import com.celik.gokhun.obilet.thisticket.model.*
 import com.celik.gokhun.obilet.thisticket.util.Constants.BASE_URL
+import com.google.gson.Gson
 import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -19,7 +21,11 @@ class ObiletAPIService {
 
     fun getSession() : Single<Session> {
         val sessionRequestApplication = SessionRequestApplication("3.1.0.0", "DD2A0857-7C7D-4376-A83B-E045435E82BB")
-        val sessionRequest  = SessionRequest(3, "", sessionRequestApplication)
+        val sessionRequest  = SessionRequest(3, sessionRequestApplication , sessionRequestApplication)
+
+
+
+
         return api.getSession(
             sessionRequest
         )

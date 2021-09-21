@@ -1,9 +1,10 @@
 package com.celik.gokhun.obilet.thisticket.view
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
-
 
 import com.celik.gokhun.obilet.thisticket.R
 import com.celik.gokhun.obilet.thisticket.model.Session
@@ -14,9 +15,8 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
 
+
 class MainActivity : AppCompatActivity() {
-
-
     private val obiletAPIService = ObiletAPIService()
 
     private val disposable = CompositeDisposable()
@@ -35,7 +35,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun refreshSessionData(){
+
+    private fun refreshSessionData(){
         getSessionDataAPI()
     }
 
@@ -52,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                         session.value = t
                         sessionError.value = false
                         sessionLoading.value = false
-                        println("halloldu")
+                        //println("halloldu")
 
                         observeSessionData()
                     }
@@ -67,15 +68,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
-
-
     private fun observeSessionData(){
-        //println("STATUS:  "+session.value?.sessionStatus)
+        println("STATUS  :   "+session.value?.sessionStatus)
+        //println("ALL   :  "+session.value)
         //println("MESSAGES:   "+session.value?.message)
-        println("ahahah :   "+session.value)
-        //println(session.value?.sessionData?.sessionId)
-        //println(session.value?.sessionData?.deviceId)
+
+        println("Session Id  :   "+session.value?.sessionData?.sessionDataDeviceId)
+        println(session.value?.sessionData?.sessionDataSessionId)
 
     }
 

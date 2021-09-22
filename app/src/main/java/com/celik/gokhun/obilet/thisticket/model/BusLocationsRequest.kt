@@ -24,5 +24,4 @@ data class BusLocationsRequestDeviceSession(
 
     @SerializedName("device-id")
     val deviceId: String?
-
 )

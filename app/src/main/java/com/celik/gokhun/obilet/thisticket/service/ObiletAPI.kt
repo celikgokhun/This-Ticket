@@ -1,9 +1,6 @@
 package com.celik.gokhun.obilet.thisticket.service
 
-import com.celik.gokhun.obilet.thisticket.model.BusLocations
-import com.celik.gokhun.obilet.thisticket.model.BusLocationsRequest
-import com.celik.gokhun.obilet.thisticket.model.Session
-import com.celik.gokhun.obilet.thisticket.model.SessionRequest
+import com.celik.gokhun.obilet.thisticket.model.*
 import com.celik.gokhun.obilet.thisticket.util.Constants.API_KEY
 import io.reactivex.Single
 import retrofit2.http.*

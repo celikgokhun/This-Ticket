@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 
 import com.celik.gokhun.obilet.thisticket.R
 import com.celik.gokhun.obilet.thisticket.model.BusLocations
+import com.celik.gokhun.obilet.thisticket.model.BusLocationsData
 import com.celik.gokhun.obilet.thisticket.model.Session
 import com.celik.gokhun.obilet.thisticket.service.ObiletAPIService
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -30,22 +31,19 @@ class MainActivity : AppCompatActivity() {
     val busLocationsLoading = MutableLiveData<Boolean>()
 
 
+    val busLocationsData = MutableLiveData<List<BusLocationsData>>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         refreshSessionData()
-
     }
 
-    private fun refreshBusLocationsData(sessionId: String, deviceId: String){
-        getBusLocationsDataAPI(sessionId,deviceId)
-    }
-
-    private fun getBusLocationsDataAPI(sessionId: String, deviceId: String){
+    private fun getBusLocationsDataAPI(sessionId: String, deviceId: String)
+    {
         busLocationsLoading.value =true
-
 
         busLocationsDisposable.add(
             obiletAPIService.getBusLocations(sessionId,deviceId)
@@ -58,22 +56,24 @@ class MainActivity : AppCompatActivity() {
                         busLocationsError.value = false
                         busLocationsLoading.value = false
                         observeBusLocationsData()
-
-
                     }
-
                     override fun onError(e: Throwable) {
                         println("olmadi amk   :  "+ e.localizedMessage )
                         busLocationsLoading.value = false
                         busLocationsError.value = true
                     }
-                })
+                }
+                )
         )
     }
 
     private fun observeBusLocationsData() {
         println("Bus Locations STATUS  :   "+busLocations.value?.status)
         println("ALL  :   "+busLocations.value)
+    }
+
+    private fun refreshBusLocationsData(sessionId: String, deviceId: String){
+        getBusLocationsDataAPI(sessionId,deviceId)
     }
 
     private fun refreshSessionData(){
@@ -112,11 +112,12 @@ class MainActivity : AppCompatActivity() {
         //println("Device  Id  :   "+session.value?.sessionData?.sessionDataDeviceId)
         //println("Session Id  :   "+session.value?.sessionData?.sessionDataSessionId)
 
-        val sessionId = session.value?.sessionData?.sessionDataDeviceId
-        val deviceId = session.value?.sessionData?.sessionDataSessionId
+        val sessionId = session.value?.sessionData?.sessionDataSessionId
+        val deviceId = session.value?.sessionData?.sessionDataDeviceId
 
         if (sessionId != null && deviceId != null) {
             refreshBusLocationsData(sessionId,deviceId)
+            //refreshBusLocationsData(deviceId,sessionId)
         }
         else
         {

@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity() {
                         busLocationsLoading.value = false
                         observeBusLocationsData()
 
+
                     }
 
                     override fun onError(e: Throwable) {

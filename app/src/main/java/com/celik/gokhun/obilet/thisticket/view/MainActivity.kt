@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private val busLocationsDisposable = CompositeDisposable()
 
-    val busLocations = MutableLiveData<List<BusLocations>>()
+    val busLocations = MutableLiveData<BusLocations>()
     val busLocationsError = MutableLiveData<Boolean>()
     val busLocationsLoading = MutableLiveData<Boolean>()
 
@@ -35,44 +35,44 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //refreshSessionData()
-
-        refreshBusLocationsData()
+        refreshSessionData()
 
     }
 
-    private fun refreshBusLocationsData(){
-        getBusLocationsDataAPI()
+    private fun refreshBusLocationsData(sessionId: String, deviceId: String){
+        getBusLocationsDataAPI(sessionId,deviceId)
     }
 
-    private fun getBusLocationsDataAPI(){
+    private fun getBusLocationsDataAPI(sessionId: String, deviceId: String){
         busLocationsLoading.value =true
 
+
         busLocationsDisposable.add(
-            obiletAPIService.getBusLocations()
+            obiletAPIService.getBusLocations(sessionId,deviceId)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<List<BusLocations>>(){
-                    override fun onSuccess(t: List<BusLocations>) {
+                .subscribeWith(object : DisposableSingleObserver<BusLocations>()
+                {
+                    override fun onSuccess(t: BusLocations) {
                         busLocations.value = t
                         busLocationsError.value = false
                         busLocationsLoading.value = false
                         observeBusLocationsData()
-                        println("oldu amk cocugu")
 
                     }
+
                     override fun onError(e: Throwable) {
                         println("olmadi amk   :  "+ e.localizedMessage )
                         busLocationsLoading.value = false
                         busLocationsError.value = true
                     }
-
                 })
         )
     }
 
     private fun observeBusLocationsData() {
-        println("STATUS  :   "+busLocations.value?.get(0)?.status)
+        println("Bus Locations STATUS  :   "+busLocations.value?.status)
+        println("ALL  :   "+busLocations.value)
     }
 
     private fun refreshSessionData(){
@@ -107,9 +107,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeSessionData(){
-        println("STATUS  :   "+session.value?.sessionStatus)
-        println("Session Id  :   "+session.value?.sessionData?.sessionDataDeviceId)
-        println(session.value?.sessionData?.sessionDataSessionId)
+        println("Session STATUS  :   "+session.value?.sessionStatus)
+        //println("Device  Id  :   "+session.value?.sessionData?.sessionDataDeviceId)
+        //println("Session Id  :   "+session.value?.sessionData?.sessionDataSessionId)
+
+        val sessionId = session.value?.sessionData?.sessionDataDeviceId
+        val deviceId = session.value?.sessionData?.sessionDataSessionId
+
+        if (sessionId != null && deviceId != null) {
+            refreshBusLocationsData(sessionId,deviceId)
+        }
+        else
+        {
+            println("tam sıçtık kanka")
+        }
 
     }
 

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class BusLocationsRequest(
 
     @SerializedName("data")
-    val data: Any?,
+    val data: String?,
 
     @SerializedName("device-session")
     val deviceSession: BusLocationsRequestDeviceSession?,

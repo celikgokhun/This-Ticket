@@ -27,6 +27,6 @@ interface ObiletAPI {
     )
     fun getBusLocations(
         @Body busLocationsRequest: BusLocationsRequest
-    ): Single<List<BusLocations>>
+    ): Single<BusLocations>
 
 }

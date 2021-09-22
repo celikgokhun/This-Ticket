@@ -31,18 +31,15 @@ class MainActivity : AppCompatActivity() {
     val busLocationsLoading = MutableLiveData<Boolean>()
 
 
-    val busLocationsData = MutableLiveData<List<BusLocationsData>>()
 
+    private fun observeBusLocations() {
+        println("Bus Locations STATUS  :   "+busLocations.value?.status)
+        //println("ALL  :   "+busLocations.value)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        refreshSessionData()
     }
 
-    private fun getBusLocationsDataAPI(sessionId: String, deviceId: String)
-    {
+
+    private fun getBusLocationsDataAPI(sessionId: String, deviceId: String){
         busLocationsLoading.value =true
 
         busLocationsDisposable.add(
@@ -51,13 +48,17 @@ class MainActivity : AppCompatActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<BusLocations>()
                 {
-                    override fun onSuccess(t: BusLocations) {
+                    override fun onSuccess(t: BusLocations)
+                    {
                         busLocations.value = t
                         busLocationsError.value = false
                         busLocationsLoading.value = false
-                        observeBusLocationsData()
+                        observeBusLocations()
+
+
                     }
-                    override fun onError(e: Throwable) {
+                    override fun onError(e: Throwable)
+                    {
                         println("olmadi amk   :  "+ e.localizedMessage )
                         busLocationsLoading.value = false
                         busLocationsError.value = true
@@ -65,11 +66,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 )
         )
-    }
-
-    private fun observeBusLocationsData() {
-        println("Bus Locations STATUS  :   "+busLocations.value?.status)
-        println("ALL  :   "+busLocations.value)
     }
 
     private fun refreshBusLocationsData(sessionId: String, deviceId: String){
@@ -124,6 +120,21 @@ class MainActivity : AppCompatActivity() {
             println("tam sıçtık kanka")
         }
 
+    }
+
+
+
+
+
+
+
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        refreshSessionData()
     }
 
 }

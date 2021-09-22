@@ -38,15 +38,10 @@ class ObiletAPIService {
         val busLocationsRequestDeviceSession = BusLocationsRequestDeviceSession(sessionId,deviceId)
         val busLocationsRequest = BusLocationsRequest("", busLocationsRequestDeviceSession,getCurrentDate(),language)
 
-        //val gson = Gson()
-        //println("Yarrak:   "+ gson.toJson(busLocationsRequest))
-
         return api.getBusLocations(
             busLocationsRequest
         )
     }
-
-
 
 
 }

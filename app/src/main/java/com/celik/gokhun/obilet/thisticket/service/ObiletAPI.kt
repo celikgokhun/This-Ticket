@@ -17,6 +17,8 @@ interface ObiletAPI {
     ): Single<Session>
 
 
+
+
     @POST("location/getbuslocations")
     @Headers(
         "Content-Type: application/json",
@@ -25,5 +27,8 @@ interface ObiletAPI {
     fun getBusLocations(
         @Body busLocationsRequest: BusLocationsRequest
     ): Single<BusLocations>
+
+
+
 
 }

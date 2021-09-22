@@ -7,8 +7,8 @@ data class BusLocations(
     @SerializedName("status")
     val status: String?,
 
-    //@SerializedName("data")
-    //val data: BusLocationsData?,
+    @SerializedName("data")
+    val data: List<BusLocationsData?>,
 
     @SerializedName("message")
     val message: Any?,
@@ -25,7 +25,6 @@ data class BusLocations(
     @SerializedName("client-request-id")
     val clientRequestId: Any?
     )
-
 
 data class BusLocationsData(
     @SerializedName("id")
@@ -60,6 +59,7 @@ data class BusLocationsData(
 
     @SerializedName("keywords")
     val keywords: String?
+
 
     )
 

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".view.MainActivity"
     android:orientation="vertical"
-    android:background="#eaecf1"
+
     >
 
     <RadioGroup
@@ -26,7 +26,7 @@
             android:id="@+id/calm"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
             android:layout_weight="1"
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="25sp"
             android:padding="30dp"
-            android:background="#f6f9ff"
+
             android:orientation="horizontal">
 
             <ImageView
@@ -81,6 +81,7 @@
                 android:src="@drawable/location_logo" />
 
             <LinearLayout
+                android:id="@+id/rootContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
@@ -98,7 +99,7 @@
                     />
 
                 <Spinner
-                    android:id="@+id/spinnerFrom"
+                    android:id="@+id/fromSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
@@ -127,7 +128,6 @@
             android:layout_marginHorizontal="25sp"
             android:layout_marginTop="5dp"
             android:padding="30dp"
-            android:background="#f6f9ff"
             android:orientation="horizontal">
 
             <ImageView

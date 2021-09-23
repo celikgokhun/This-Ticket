@@ -212,17 +212,6 @@ data class BusJourneysDataJourneyPolicy(
 
 )
 
-data class BusJourneysDataJourneyFeatures(
-    @SerializedName("")
-    val one: String?,
-
-    @SerializedName("")
-    val two: String?,
-
-    @SerializedName("")
-    val three: String?,
-)
-
 data class BusJourneysDataFeatures(
 
     @SerializedName("id")

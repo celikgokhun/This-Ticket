@@ -35,6 +35,7 @@ dependencies {
 
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     def lifeCycleExtensionVersion = '1.1.1'
     def supportVersion = '28.0.0'
     def retrofitVersion = '2.3.0'
@@ -60,6 +61,11 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rxJavaVersion"
 
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
+
+    implementation "android.arch.lifecycle:extensions:$lifeCycleExtensionVersion"
 
 
 

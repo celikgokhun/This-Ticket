@@ -7,8 +7,8 @@ data class BusJourneys(
     @SerializedName("status")
     val status: String?,
 
-    @SerializedName("data")
-    val data: List<BusJourneysData?>,
+    //@SerializedName("data")
+    //val data: List<BusJourneysData?>,
 
     @SerializedName("message")
     val message: Any?,

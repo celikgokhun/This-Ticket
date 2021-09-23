@@ -17,8 +17,6 @@ interface ObiletAPI {
     ): Single<Session>
 
 
-
-
     @POST("location/getbuslocations")
     @Headers(
         "Content-Type: application/json",

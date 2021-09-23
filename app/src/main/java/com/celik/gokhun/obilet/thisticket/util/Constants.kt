@@ -12,7 +12,12 @@ object Constants {
 }
 
 @SuppressLint("SimpleDateFormat")
-fun getCurrentDate():String{
+fun getCurrentDateTime():String{
     val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+    return sdf.format(Date())
+}
+
+fun getCurrentDate():String{
+    val sdf = SimpleDateFormat("yyyy-MM-dd")
     return sdf.format(Date())
 }

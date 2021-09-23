@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class BusJourneysRequest(
 
     @SerializedName("device-session")
-    val busJourneysRequestDeviceSession: BusJourneysRequestDeviceSession?,
+    val deviceSession: BusJourneysRequestDeviceSession,
 
     @SerializedName("date")
     val date: String?,
@@ -14,7 +14,7 @@ data class BusJourneysRequest(
     val language: String?,
 
     @SerializedName("data")
-    val busJourneysRequestData: BusJourneysRequestData
+    val data: BusJourneysRequestData?
 
 )
 
@@ -31,12 +31,12 @@ data class BusJourneysRequestDeviceSession(
 data class BusJourneysRequestData(
 
     @SerializedName("origin-id")
-    val sessionId: Int?,
+    val originId: Int?,
 
     @SerializedName("destination-id")
     val destinationId: Int?,
 
     @SerializedName("departure-date")
-    val deviceId: String?
+    val departureDate: String?
 
 )

@@ -1,6 +1,5 @@
 package com.celik.gokhun.obilet.thisticket.service
 
-import android.annotation.SuppressLint
 import com.celik.gokhun.obilet.thisticket.model.*
 import com.celik.gokhun.obilet.thisticket.util.Constants.BASE_URL
 import com.celik.gokhun.obilet.thisticket.util.getCurrentDate
@@ -8,7 +7,6 @@ import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.text.SimpleDateFormat
 import java.util.*
 
 class ObiletAPIService {

@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
     private fun getBusLocationsDataAPI(sessionId: String, deviceId: String){
         busLocationsLoading.value =true
 

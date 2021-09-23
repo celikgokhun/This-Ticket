@@ -30,5 +30,17 @@ interface ObiletAPI {
 
 
 
+    @POST("journey/getbusjourneys")
+    @Headers(
+        "Content-Type: application/json",
+        "Authorization: Basic $API_KEY"
+    )
+    fun getBusJourneys(
+        @Body busJourneysRequest: BusJourneysRequest
+    ): Single<BusJourneys>
+
+
+
+
 
 }

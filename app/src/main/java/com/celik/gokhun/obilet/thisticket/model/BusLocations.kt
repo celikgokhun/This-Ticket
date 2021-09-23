@@ -27,6 +27,7 @@ data class BusLocations(
     )
 
 data class BusLocationsData(
+
     @SerializedName("id")
     val id: Int?,
 

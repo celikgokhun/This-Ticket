@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity() {
                         busJourneysLoading.value = false
                         observeBusJourneys()
 
-                        println("oldu amk evladı oldu   :  ")
 
                     }
                     override fun onError(e: Throwable)
@@ -71,6 +70,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeBusJourneys(){
         println("Bus Journeys STATUS  :   "+busJourneys.value?.status)
+        println("All  :   "+busJourneys.value?.data?.get(0))
         //println("ALL  :   "+busLocations.value)
     }
 

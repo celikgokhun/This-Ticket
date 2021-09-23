@@ -7,8 +7,8 @@ data class BusJourneys(
     @SerializedName("status")
     val status: String?,
 
-    //@SerializedName("data")
-    //val data: List<BusJourneysData?>,
+    @SerializedName("data")
+    val data: List<BusJourneysData?>,
 
     @SerializedName("message")
     val message: Any?,
@@ -31,8 +31,8 @@ data class BusJourneysData(
     @SerializedName("id")
     val id: Int?,
 
-    @SerializedName("parent-id")
-    val parentId: Int?,
+    @SerializedName("partner-id")
+    val partnerId: Int?,
 
     @SerializedName("partner-name")
     val partnerName: String?,
@@ -156,10 +156,10 @@ data class BusJourneysDataJourney(
     val busName: String?,
 
     @SerializedName("policy")
-    val policy: BusJourneysDataJourneyPolicy?,//------------------------------
+    val policy: BusJourneysDataJourneyPolicy?,
 
     @SerializedName("features")
-    val features: List<BusJourneysDataJourneyFeatures?>,//---------------------------
+    val features: Any?,
 
     @SerializedName("description")
     val description: Any?,
@@ -232,19 +232,19 @@ data class BusJourneysDataFeatures(
     val priority: Int?,
 
     @SerializedName("name")
-    val name: Int?,
+    val name: String?,
 
     @SerializedName("description")
-    val description: Boolean?,
+    val description: Any?,
 
     @SerializedName("is-promoted")
     val isPromoted: Boolean?,
 
     @SerializedName("back-color")
-    val backColor: Boolean?,
+    val backColor: Any?,
 
     @SerializedName("fore-color")
-    val foreColor: Boolean?,
+    val foreColor: Any?,
 
 
 

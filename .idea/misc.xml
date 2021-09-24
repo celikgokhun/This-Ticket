@@ -4,9 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/G/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/simple_spinner_dropdown_item.xml" value="0.3546875" />
+        <entry key="..\:/Users/G/Desktop/Android/ThisTicket/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/G/Desktop/Android/ThisTicket/app/src/main/res/drawable/change_logo.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/G/Desktop/Android/ThisTicket/app/src/main/res/drawable/control_switch_background_border.xml" value="0.37083333333333335" />
         <entry key="..\:/Users/G/Desktop/Android/ThisTicket/app/src/main/res/drawable/control_switch_background_selector.xml" value="0.37083333333333335" />
         <entry key="..\:/Users/G/Desktop/Android/ThisTicket/app/src/main/res/drawable/control_switch_background_selector_middle.xml" value="0.37083333333333335" />
+        <entry key="..\:/Users/G/Desktop/Android/ThisTicket/app/src/main/res/drawable/location_logo.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/G/Desktop/Android/ThisTicket/app/src/main/res/layout/activity_main.xml" value="0.33152173913043476" />
         <entry key="..\:/Users/G/Desktop/Android/ThisTicket/app/src/main/res/layout/bus_locations.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/G/Desktop/Android/ThisTicket/app/src/main/res/layout/fragment_journeys.xml" value="0.19791666666666666" />

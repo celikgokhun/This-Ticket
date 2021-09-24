@@ -9,7 +9,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-class BusLocationsViewModel : ViewModel() {
+class BusLocationsViewModel() : ViewModel() {
 
     private val obiletAPIService = ObiletAPIService()
     private val busLocationsDisposable = CompositeDisposable()
@@ -18,7 +18,7 @@ class BusLocationsViewModel : ViewModel() {
     val busLocationsError = MutableLiveData<Boolean>()
     val busLocationsLoading = MutableLiveData<Boolean>()
 
-    fun refreshSessionData(sessionId: String, deviceId: String){
+    fun refreshBusLocationsData(sessionId: String, deviceId: String){
         getBusLocationsDataAPI(sessionId, deviceId)
     }
 
@@ -36,7 +36,7 @@ class BusLocationsViewModel : ViewModel() {
                         busLocations.value = t
                         busLocationsError.value = false
                         busLocationsLoading.value = false
-                        //observeBusLocations()
+                        observeBusLocations()
 
 
                     }
@@ -50,5 +50,10 @@ class BusLocationsViewModel : ViewModel() {
                 )
         )
     }
+
+    private fun observeBusLocations() {
+        //println("Session Bus Locations  :   " + busLocations.value?.status)
+    }
+
 
 }

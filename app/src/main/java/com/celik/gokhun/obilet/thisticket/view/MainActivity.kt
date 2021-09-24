@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers
 import android.widget.ArrayAdapter
 
 
-class MainActivity : AppCompatActivity(),AdapterView.OnItemSelectedListener{
+class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private val obiletAPIService = ObiletAPIService()
 
     private val disposable = CompositeDisposable()
@@ -40,79 +40,16 @@ class MainActivity : AppCompatActivity(),AdapterView.OnItemSelectedListener{
     val busJourneysError = MutableLiveData<Boolean>()
     val busJourneysLoading = MutableLiveData<Boolean>()
 
-    //var languages = arrayOf("English", "French", "Spanish", "Hindi", "Russian", "Telugu", "Chinese", "German", "Portuguese", "Arabic", "Dutch", "Urdu", "Italian", "Tamil", "Persian", "Turkish", "Other")
-    lateinit var fromSpinner: Spinner
-
-    //private lateinit var iewModel : FeedViewModel
+    private lateinit var fromSpinner: Spinner
+    lateinit var toSpinner: Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
         refreshSessionData()
     }
 
-    override fun onItemSelected(arg0: AdapterView<*>, arg1: View, position: Int, id: Long) {
-        //println("Selected : "+locations[position])
-    }
-
-    override fun onNothingSelected(arg0: AdapterView<*>) {
-
-    }
-
-
-
-    private fun observeSessionData(){
-        println("Session STATUS  :   "+session.value?.sessionStatus)
-        //println("Device  Id  :   "+session.value?.sessionData?.sessionDataDeviceId)
-        //println("Session Id  :   "+session.value?.sessionData?.sessionDataSessionId)
-
-        val sessionId = session.value?.sessionData?.sessionDataSessionId
-        val deviceId = session.value?.sessionData?.sessionDataDeviceId
-
-        if (sessionId != null && deviceId != null) {
-            refreshBusLocationsData(sessionId,deviceId)
-            //refreshBusJourneysData(sessionId,deviceId,349,356,"2021-10-01")
-        }
-        else
-        {
-            println("tam sıçtık kanka")
-        }
-
-    }
-
-    private fun refreshSessionData(){
-        getSessionDataAPI()
-    }
-
-    private fun getSessionDataAPI(){
-        sessionLoading.value =true
-
-        disposable.add(
-            obiletAPIService.getSession()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<Session>()
-                {
-                    override fun onSuccess(t: Session) {
-                        session.value = t
-                        sessionError.value = false
-                        sessionLoading.value = false
-                        observeSessionData()
-
-                    }
-
-                    override fun onError(e: Throwable) {
-                        println("olmadi amk   :  "+ e.localizedMessage )
-                        sessionLoading.value = false
-                        sessionError.value = true
-                    }
-                })
-        )
-
-    }
 
     private fun getBusJourneysDataApi(sessionId: String, deviceId: String, originId: Int, destinationId: Int, departureDate: String) {
         busJourneysLoading.value = true
@@ -183,30 +120,10 @@ class MainActivity : AppCompatActivity(),AdapterView.OnItemSelectedListener{
         getBusJourneysDataApi(sessionId,deviceId,originId,destinationId,departureDate)
     }
 
-
     private fun observeBusLocations() {
         println("Bus Locations STATUS  :   "+busLocations.value?.status)
 
-        println("Boyut  :   "+busLocations.value?.data?.size)
-        println("Boyut  :   "+busLocations.value?.data?.get(1)?.name)
-
-        val locationSize = busLocations.value?.data?.size.toString().toInt()
-
-        val locations = arrayOfNulls<String?>(locationSize)
-
-        for (i in 0..locationSize-1){
-            locations[i] = busLocations.value?.data?.get(i)?.name.toString()
-        }
-
-
-        fromSpinner = findViewById(R.id.fromSpinner)
-        this.also { it.also { fromSpinner.onItemSelectedListener = it } }
-
-
-        val aa = ArrayAdapter(this, android.R.layout.simple_spinner_item, locations)
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        fromSpinner.adapter = aa
-
+        fillSpinners()
     }
 
     private fun refreshBusLocationsData(sessionId: String, deviceId: String){
@@ -214,8 +131,112 @@ class MainActivity : AppCompatActivity(),AdapterView.OnItemSelectedListener{
     }
 
 
+    private var idleArray = arrayOf<Int?>()
 
+    private fun fillSpinners(){
+
+        val locationSize = busLocations.value?.data?.size.toString().toInt()
+
+
+        val locationsName = arrayOfNulls<String?>(locationSize)
+        val locationsId = arrayOfNulls<Int?>(locationSize)
+
+        for (i in 0..locationSize-1){ ////////////////////// lan keko
+            //locationsNameId[i] = busLocations.value?.data?.get(i)?.name.toString() +"%"+ busLocations.value?.data?.get(i)?.id.toString()
+            locationsName[i] = busLocations.value?.data?.get(i)?.name.toString()
+            locationsId[i] = busLocations.value?.data?.get(i)?.id.toString().toInt()
+
+        }
+
+        idleArray = locationsId
+
+        fromSpinner = findViewById(R.id.fromSpinner)
+        this.also { it.also { fromSpinner.onItemSelectedListener = it } }
+
+        val aa = ArrayAdapter(this, android.R.layout.simple_spinner_item, locationsName)
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        fromSpinner.adapter = aa
+
+        toSpinner = findViewById(R.id.toSpinner)
+        this.also { it.also { toSpinner.onItemSelectedListener = it } }
+
+        val bb = ArrayAdapter(this, android.R.layout.simple_spinner_item, locationsName)
+        bb.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        toSpinner.adapter = bb
+    }
+
+
+
+    fun findTicket(view: android.view.View) {
+        println("pozisyon numarası"+fromSpinner.selectedItemPosition)
+        println("idsi numarası"+ idleArray[fromSpinner.selectedItemPosition])
+    }
+
+
+
+
+
+
+
+
+
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+
+    }
+
+    private fun observeSessionData(){
+        println("Session STATUS  :   "+session.value?.sessionStatus)
+        //println("Device  Id  :   "+session.value?.sessionData?.sessionDataDeviceId)
+        //println("Session Id  :   "+session.value?.sessionData?.sessionDataSessionId)
+
+        val sessionId = session.value?.sessionData?.sessionDataSessionId
+        val deviceId = session.value?.sessionData?.sessionDataDeviceId
+
+        if (sessionId != null && deviceId != null) {
+            refreshBusLocationsData(sessionId,deviceId)
+            //refreshBusJourneysData(sessionId,deviceId,349,356,"2021-10-01")
+        }
+        else
+        {
+            println("tam sıçtık kanka")
+        }
+
+    }
+
+    private fun refreshSessionData(){
+        getSessionDataAPI()
+    }
+
+    private fun getSessionDataAPI(){
+        sessionLoading.value =true
+
+        disposable.add(
+            obiletAPIService.getSession()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSingleObserver<Session>()
+                {
+                    override fun onSuccess(t: Session) {
+                        session.value = t
+                        sessionError.value = false
+                        sessionLoading.value = false
+                        observeSessionData()
+
+                    }
+
+                    override fun onError(e: Throwable) {
+                        println("olmadi amk   :  "+ e.localizedMessage )
+                        sessionLoading.value = false
+                        sessionError.value = true
+                    }
+                })
+        )
+
+    }
 
 
 }
-

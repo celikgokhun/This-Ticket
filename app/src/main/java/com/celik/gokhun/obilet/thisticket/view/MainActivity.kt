@@ -17,6 +17,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import android.widget.ArrayAdapter
+import com.celik.gokhun.obilet.thisticket.util.getCurrentDate
 
 
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
@@ -130,8 +131,19 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         getBusLocationsDataAPI(sessionId,deviceId)
     }
 
+    //// saçma sapan datalar kanka
 
     private var idleArray = arrayOf<Int?>()
+    private lateinit var idleSessionId : String
+    private lateinit var idleDeviceId: String
+
+
+    //// saçma sapan datalar kanka
+
+
+
+
+
 
     private fun fillSpinners(){
 
@@ -170,11 +182,17 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     fun findTicket(view: android.view.View) {
         println("pozisyon numarası"+fromSpinner.selectedItemPosition)
         println("idsi numarası"+ idleArray[fromSpinner.selectedItemPosition])
+
+        val originId =  idleArray[fromSpinner.selectedItemPosition]
+        val destinationId =  idleArray[toSpinner.selectedItemPosition]
+
+        originId?.let {
+            destinationId?.let { it1 ->
+                refreshBusJourneysData(idleSessionId, idleDeviceId,
+                    it, it1, getCurrentDate() )
+            }
+        }
     }
-
-
-
-
 
 
 
@@ -197,6 +215,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         val deviceId = session.value?.sessionData?.sessionDataDeviceId
 
         if (sessionId != null && deviceId != null) {
+
+            idleSessionId = sessionId
+            idleDeviceId = deviceId
+
             refreshBusLocationsData(sessionId,deviceId)
             //refreshBusJourneysData(sessionId,deviceId,349,356,"2021-10-01")
         }

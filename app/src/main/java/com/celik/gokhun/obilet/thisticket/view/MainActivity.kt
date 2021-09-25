@@ -17,6 +17,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import android.widget.ArrayAdapter
+import com.celik.gokhun.obilet.thisticket.util.getCurrentDateWithFineFormat
 import com.celik.gokhun.obilet.thisticket.util.getCurrentDate
 
 
@@ -42,15 +43,20 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     val busJourneysLoading = MutableLiveData<Boolean>()
 
     private lateinit var fromSpinner: Spinner
-    lateinit var toSpinner: Spinner
+    private lateinit var toSpinner: Spinner
+
+    private lateinit var dateTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        dateTextView = findViewById(R.id.dateTextView)
+
+        dateTextView.text = getCurrentDateWithFineFormat()
+
         refreshSessionData()
     }
-
 
     private fun getBusJourneysDataApi(sessionId: String, deviceId: String, originId: Int, destinationId: Int, departureDate: String) {
         busJourneysLoading.value = true
@@ -137,12 +143,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var idleSessionId : String
     private lateinit var idleDeviceId: String
 
-
     //// saçma sapan datalar kanka
-
-
-
-
 
 
     private fun fillSpinners(){
@@ -177,11 +178,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         toSpinner.adapter = bb
     }
 
-
-
     fun findTicket(view: android.view.View) {
-        println("pozisyon numarası"+fromSpinner.selectedItemPosition)
-        println("idsi numarası"+ idleArray[fromSpinner.selectedItemPosition])
 
         val originId =  idleArray[fromSpinner.selectedItemPosition]
         val destinationId =  idleArray[toSpinner.selectedItemPosition]
@@ -193,9 +190,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             }
         }
     }
-
-
-
 
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {

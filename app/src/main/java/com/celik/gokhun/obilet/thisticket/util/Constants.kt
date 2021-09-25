@@ -21,3 +21,8 @@ fun getCurrentDate():String{
     val sdf = SimpleDateFormat("yyyy-MM-dd")
     return sdf.format(Date())
 }
+
+fun getCurrentDateWithFineFormat():String{
+    val sdf = SimpleDateFormat("dd MM yyyy EE")
+    return sdf.format(Date())
+}

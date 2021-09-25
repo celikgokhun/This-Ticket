@@ -9,7 +9,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-class BusJourneysData : ViewModel(){
+class BusJourneysViewModel : ViewModel(){
 
     private val obiletAPIService = ObiletAPIService()
 

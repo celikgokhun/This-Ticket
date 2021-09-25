@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".view.MainActivity"
-        android:orientation="vertical"
-        >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.MainActivity"
+    android:orientation="vertical"
+    >
 
-        <RadioGroup
+    <RadioGroup
             android:id="@+id/toggle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
             android:checkedButton="@+id/calm"
             android:orientation="horizontal"
             android:layout_gravity="center"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="30dp"
             android:layout_marginHorizontal="20dp"
             >
 
@@ -60,190 +60,201 @@
 
         </RadioGroup>
 
-        <LinearLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeToRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="25dp"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/fromLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="30dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.16">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/location_logo" />
-
-                    <LinearLayout
-                        android:id="@+id/rootContainer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="5"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="5dp"
-                            android:text="Nereden"
-                            android:textColor="@color/blue"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <Spinner
-                            android:id="@+id/fromSpinner"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="5dp" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white"
-                    android:src="@drawable/change_logo"
-                    app:backgroundTint="@android:color/darker_gray"
-                    app:borderWidth="2sp"
-                    android:layout_marginTop="5dp"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="30dp"
-                    >
-
-                </com.google.android.material.floatingactionbutton.FloatingActionButton>
-
-                <LinearLayout
-                    android:id="@+id/toLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal"
-                    android:padding="30dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/location_logo" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="5"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="5dp"
-                            android:text="Nereye"
-                            android:textColor="@color/blue"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <Spinner
-                            android:id="@+id/toSpinner"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="5dp" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="25dp"
-                android:layout_marginTop="10dp"
-                android:padding="30dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="10dp"
-                    android:src="@drawable/calendar_logo" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:gravity="center_vertical"
+                    android:layout_marginHorizontal="25dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
-                    <TextView
+                    <LinearLayout
+                        android:id="@+id/fromLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Tarih"
-                        android:textColor="@color/blue"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:padding="5dp"
-                        />
+                        android:orientation="horizontal"
+                        android:padding="30dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.16">
 
-                    <TextView
-                        android:id="@+id/dateTextView"
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/location_logo" />
+
+                        <LinearLayout
+                            android:id="@+id/rootContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:text="Nereden"
+                                android:textColor="@color/blue"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <Spinner
+                                android:id="@+id/fromSpinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/change_logo"
+                        app:backgroundTint="@android:color/darker_gray"
+                        app:borderWidth="2sp"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="30dp"
+                        >
+
+                    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+                    <LinearLayout
+                        android:id="@+id/toLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="#888282"
-                        android:textSize="18sp"
-                        android:padding="5dp"
-                        />
+
+                        android:orientation="horizontal"
+                        android:padding="30dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/location_logo" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:text="Nereye"
+                                android:textColor="@color/blue"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <Spinner
+                                android:id="@+id/toSpinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="25dp"
+                    android:layout_marginTop="10dp"
+                    android:padding="30dp"
+                    android:orientation="horizontal">
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/calendar_logo" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tarih"
+                            android:textColor="@color/blue"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:padding="5dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/dateTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:padding="5dp"
+                            />
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="50dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="20dp"
+                    android:onClick="findTicket"
+                    android:text="Bileti Bul"
+                    android:background="@drawable/button_bg"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="50dp"
-                android:layout_marginTop="8dp"
-                android:onClick="findTicket"
-                android:text="Bileti Bul"
-                android:background="@drawable/button_bg"
-                android:textAllCaps="false"
-                android:textSize="18sp"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
+        </ScrollView>
 
-        </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>
 

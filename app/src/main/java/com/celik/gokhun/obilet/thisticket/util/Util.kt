@@ -4,11 +4,14 @@ import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
 import java.util.*
 
-object Constants {
 
+
+object Constants {
     const val BASE_URL = "https://v2-api.obilet.com/api/"
     const val API_KEY = "JEcYcEMyantZV095WVc3G2JtVjNZbWx1"
 
+    //var sessionId = " "
+    //var deviceId = " "
 }
 
 @SuppressLint("SimpleDateFormat")

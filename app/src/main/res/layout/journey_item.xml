@@ -106,7 +106,7 @@
             android:id="@+id/originDestinationText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Esenler"
+            android:text="Esenler-Ankara"
             android:textColor="@color/blue"
             android:textSize="15sp"
             />

@@ -38,8 +38,8 @@ class ViewModel : ViewModel() {
     val busJourneysLoading = MutableLiveData<Boolean>()
 
     var idleArray = arrayOf<Int?>()
-    private lateinit var idleSessionId : String
-    private lateinit var idleDeviceId: String
+    lateinit var idleSessionId : String
+    lateinit var idleDeviceId: String
 
     private fun observeSessionData(){
         println("Session STATUS  :   "+session.value?.sessionStatus)
@@ -164,6 +164,21 @@ class ViewModel : ViewModel() {
 
     private fun observeBusLocations() {
         println("Bus Locations STATUS  :   "+busLocations.value?.status)
+
+        val locationSize = busLocations.value?.data?.size.toString().toInt()
+
+
+        val locationsName = arrayOfNulls<String?>(locationSize)
+        val locationsId = arrayOfNulls<Int?>(locationSize)
+
+        for (i in 0..locationSize-1){ ////////////////////// lan keko
+            //locationsNameId[i] = busLocations.value?.data?.get(i)?.name.toString() +"%"+ busLocations.value?.data?.get(i)?.id.toString()
+            locationsName[i] = busLocations.value?.data?.get(i)?.name.toString()
+            locationsId[i] = busLocations.value?.data?.get(i)?.id.toString().toInt()
+
+        }
+
+        idleArray = locationsId
 
         //fillSpinners()
     }

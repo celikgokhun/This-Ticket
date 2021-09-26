@@ -10,6 +10,7 @@ import com.celik.gokhun.obilet.thisticket.R
 import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProviders
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.celik.gokhun.obilet.thisticket.util.getCurrentDate
 import com.celik.gokhun.obilet.thisticket.util.getCurrentDateWithFineFormat
 import com.celik.gokhun.obilet.thisticket.viewmodel.ViewModel
 
@@ -99,25 +100,22 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     fun findTicket(view: android.view.View) {
 
-        /*
 
-        val originId =  idleArray[fromSpinner.selectedItemPosition]
-        val destinationId =  idleArray[toSpinner.selectedItemPosition]
+        val originId =  viewModel.idleArray[fromSpinner.selectedItemPosition]
+        val destinationId =  viewModel.idleArray[toSpinner.selectedItemPosition]
         originId?.let {
             destinationId?.let { it1 ->
 
-                refreshBusJourneysData(idleSessionId, idleDeviceId, it, it1, getCurrentDate() )
+                val intent = Intent(this, JourneyActivity::class.java)
+                intent.putExtra("sessionId", viewModel.idleSessionId)
+                intent.putExtra("deviceId", viewModel.idleDeviceId)
+                intent.putExtra("originId", it)
+                intent.putExtra("destinationId", it1)
+                intent.putExtra("date", getCurrentDate())
+                startActivity(intent)
 
             }
         }
-
-         */
-
-
-        val intent = Intent(this, JourneyActivity::class.java)
-        //intent.putExtra("key", value)
-        startActivity(intent)
-
     }
 
 

@@ -31,13 +31,24 @@ class JourneyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_journey)
 
+        var sessionId : String? = intent.getStringExtra("sessionId")
+        var deviceId : String? = intent.getStringExtra("deviceId")
+        var originId : Int? = intent.getIntExtra("originId",0)
+        var destinationId : Int? = intent.getIntExtra("destinationId",0)
+        var date : String? = intent.getStringExtra("date")
+
         swipeRefresh = findViewById(R.id.swipeRefreshTickets)
 
         layoutManager = LinearLayoutManager(this)
         recyclerViewTicket.layoutManager =layoutManager
 
         viewModel = ViewModelProviders.of(this).get(ViewModel::class.java)
-        viewModel.refreshBusJourneysData("PqtdftjloK3Kpka97+ILDzMa6D9740nggLiTzXiLlzA=","PqtdftjloK3Kpka97+ILDzMa6D9740nggLiTzXiLlzA=",349,356,"2021-10-01")
+
+
+        if (sessionId != null && deviceId != null && originId != null && destinationId != null && date != null) {
+            viewModel.refreshBusJourneysData(sessionId,deviceId, originId,destinationId,date)
+        }
+
 
         Handler().postDelayed(
             {
@@ -85,7 +96,6 @@ class JourneyActivity : AppCompatActivity() {
 
             },2000)
         }
-
     }
 
     class TicketAdapter(private val activity: JourneyActivity) : RecyclerView.Adapter<TicketAdapter.TicketViewHolder>(){

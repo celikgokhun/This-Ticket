@@ -25,7 +25,23 @@ fun getCurrentDate():String{
     return sdf.format(Date())
 }
 
+fun getCurrentDateTomorrow():String{
+    val sdf = SimpleDateFormat("yyyy-MM-dd")
+    return sdf.format(Date())
+}
+
 fun getCurrentDateWithFineFormat():String{
     val sdf = SimpleDateFormat("dd MM yyyy EE")
     return sdf.format(Date())
 }
+
+fun getCurrentDateWithFineFormatTomorrow():String{
+    val sdf = SimpleDateFormat("dd MM yyyy EE")
+    var dt = Date()
+    val c = Calendar.getInstance()
+    c.time = dt
+    c.add(Calendar.DATE, 1)
+    dt = c.time
+    return sdf.format(dt)
+}
+

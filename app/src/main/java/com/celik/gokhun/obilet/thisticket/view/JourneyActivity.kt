@@ -16,6 +16,7 @@ import com.celik.gokhun.obilet.thisticket.model.BusJourneysData
 import com.celik.gokhun.obilet.thisticket.viewmodel.ViewModel
 import kotlinx.android.synthetic.main.activity_journey.*
 import kotlinx.android.synthetic.main.journey_item.view.*
+import java.lang.NullPointerException
 
 class JourneyActivity : AppCompatActivity() {
 
@@ -52,21 +53,26 @@ class JourneyActivity : AppCompatActivity() {
 
         Handler().postDelayed(
             {
-                getPage()
+                if (sessionId != null && deviceId != null && originId != null && destinationId != null && date != null) {
+                    getPage(sessionId, deviceId, originId, destinationId, date)
+                }
             },
-            4000)
+            2000)
 
 
         swipeRefresh.setOnRefreshListener {
-            getPage()
+            if (sessionId != null && deviceId != null && originId != null && destinationId != null && date != null) {
+                getPage(sessionId, deviceId, originId, destinationId, date)
+            }
         }
 
     }
 
-    private fun getPage() {
+    private fun getPage(sessionId: String, deviceId: String, originId: Int, destinationId: Int, date: String) {
         journeyList.clear()
         recyclerViewTicket.visibility= View.VISIBLE
         ticketLoading.visibility=View.GONE
+        viewModel.refreshBusJourneysData(sessionId,deviceId, originId,destinationId,date)
 
         if (viewModel.busJourneys.value?.status.equals("Success"))
         {
@@ -109,10 +115,15 @@ class JourneyActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: TicketViewHolder, position: Int) {
-            holder.journeyAdapter.departureTimeText.text = activity.journeyList[position].journey?.departure!!.split("T")[1].split(":")[0]+":"+activity.journeyList[position].journey?.departure!!.split("T")[1].split(":")[1]
-            holder.journeyAdapter.arrivalTimeText.text = activity.journeyList[position].journey?.arrival!!.split("T")[1].split(":")[0]+":"+activity.journeyList[position].journey?.arrival!!.split("T")[1].split(":")[1]
-            holder.journeyAdapter.originDestinationText.text = activity.journeyList[position].journey?.origin+" - "+activity.journeyList[position].journey?.destination
-            holder.journeyAdapter.priceText.text = activity.journeyList[position].journey?.internetPrice.toString()+" "+ activity.journeyList[position].journey?.currency
+            try
+            {
+                holder.journeyAdapter.departureTimeText.text = activity.journeyList[position].journey?.departure!!.split("T")[1].split(":")[0]+":"+activity.journeyList[position].journey?.departure!!.split("T")[1].split(":")[1]
+                holder.journeyAdapter.arrivalTimeText.text = activity.journeyList[position].journey?.arrival!!.split("T")[1].split(":")[0]+":"+activity.journeyList[position].journey?.arrival!!.split("T")[1].split(":")[1]
+                holder.journeyAdapter.originDestinationText.text = activity.journeyList[position].journey?.origin+" - "+activity.journeyList[position].journey?.destination
+                holder.journeyAdapter.priceText.text = activity.journeyList[position].journey?.internetPrice.toString()+" "+ activity.journeyList[position].journey?.currency
+
+            }
+            catch (npe: NullPointerException){npe.printStackTrace()}
         }
 
         override fun getItemCount(): Int {

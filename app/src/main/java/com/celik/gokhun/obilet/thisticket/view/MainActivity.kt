@@ -11,7 +11,9 @@ import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProviders
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.celik.gokhun.obilet.thisticket.util.getCurrentDate
+import com.celik.gokhun.obilet.thisticket.util.getCurrentDateTomorrow
 import com.celik.gokhun.obilet.thisticket.util.getCurrentDateWithFineFormat
+import com.celik.gokhun.obilet.thisticket.util.getCurrentDateWithFineFormatTomorrow
 import com.celik.gokhun.obilet.thisticket.viewmodel.ViewModel
 
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
@@ -25,9 +27,13 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private lateinit var  swipeRefresh : SwipeRefreshLayout
 
+    private lateinit var dateFor: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        dateFor = getCurrentDate()
 
         viewModel = ViewModelProviders.of(this).get(ViewModel::class.java)
 
@@ -98,7 +104,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     }
 
-    fun findTicket(view: android.view.View) {
+    fun findTicket(view: View) {
 
 
         val originId =  viewModel.idleArray[fromSpinner.selectedItemPosition]
@@ -111,11 +117,28 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 intent.putExtra("deviceId", viewModel.idleDeviceId)
                 intent.putExtra("originId", it)
                 intent.putExtra("destinationId", it1)
-                intent.putExtra("date", getCurrentDate())
+                intent.putExtra("date", dateFor)
                 startActivity(intent)
 
             }
         }
+    }
+
+    fun setToday(view: View){
+        dateTextView.text = getCurrentDateWithFineFormat()
+        dateFor = getCurrentDate()
+    }
+
+    fun setTomorrow(view: View){
+        dateTextView.text = getCurrentDateWithFineFormatTomorrow()
+        dateFor = getCurrentDateTomorrow()
+    }
+
+    fun changeDirection(view: View){
+        val idle :Int = fromSpinner.selectedItemPosition
+        val idle2 :Int = toSpinner.selectedItemPosition
+        fromSpinner.setSelection(idle2)
+        toSpinner.setSelection(idle)
     }
 
 
@@ -126,7 +149,5 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     override fun onNothingSelected(p0: AdapterView<*>?) {
 
     }
-
-
 
 }

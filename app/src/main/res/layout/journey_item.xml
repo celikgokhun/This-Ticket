@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="KALKIŞ"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/gray"
                     android:textSize="13sp" />
 
                 <TextView
@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="VARIŞ"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/gray"
                     android:textSize="13sp"
                     />
 
@@ -107,7 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Esenler-Ankara"
-            android:textColor="@color/blue"
+            android:textColor="@color/gray"
             android:textSize="15sp"
             />
 

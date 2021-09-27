@@ -1,6 +1,7 @@
 package com.celik.gokhun.obilet.thisticket.viewmodel
 
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.celik.gokhun.obilet.thisticket.R
@@ -59,7 +60,7 @@ class ViewModel : ViewModel() {
         }
         else
         {
-            println("tam sıçtık kanka")
+            println("Fatal Error")
         }
 
     }
@@ -84,7 +85,7 @@ class ViewModel : ViewModel() {
                         observeSessionData()
                     }
                     override fun onError(e: Throwable) {
-                        println("olmadi amk   :  "+ e.localizedMessage )
+                        println("Error   :  "+ e.localizedMessage )
                         sessionLoading.value = false
                         sessionError.value = true
                     }
@@ -113,7 +114,7 @@ class ViewModel : ViewModel() {
                     }
                     override fun onError(e: Throwable)
                     {
-                        println("olmadi amk   :  "+ e.localizedMessage )
+                        println("Error   :  "+ e.localizedMessage )
                         busJourneysLoading.value = false
                         busJourneysError.value = true
                     }
@@ -149,7 +150,7 @@ class ViewModel : ViewModel() {
                     }
                     override fun onError(e: Throwable)
                     {
-                        println("olmadi amk   :  "+ e.localizedMessage )
+                        println("Error   :  "+ e.localizedMessage )
                         busLocationsLoading.value = false
                         busLocationsError.value = true
                     }

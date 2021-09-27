@@ -1,6 +1,9 @@
 package com.celik.gokhun.obilet.thisticket.view
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -8,6 +11,7 @@ import android.view.View
 import android.widget.*
 import com.celik.gokhun.obilet.thisticket.R
 import android.widget.ArrayAdapter
+import androidx.annotation.ColorInt
 import androidx.lifecycle.ViewModelProviders
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.celik.gokhun.obilet.thisticket.util.getCurrentDate
@@ -37,17 +41,28 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
 
 
+    private lateinit var preference : SharedPreferences
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        dateFor = getCurrentDate()
+        fromSpinner = findViewById(R.id.fromSpinner)
+        toSpinner = findViewById(R.id.toSpinner)
+        flightFromSpinner = findViewById(R.id.flightFromSpinner)
+        flightToSpinner = findViewById(R.id.flightToSpinner)
+
+        preference=getSharedPreferences(resources.getString(R.string.app_name), Context.MODE_PRIVATE)
+
 
         viewModel = ViewModelProviders.of(this).get(ViewModel::class.java)
 
         dateTextView = findViewById(R.id.dateTextView)
 
-        dateTextView.text = getCurrentDateWithFineFormat()
+        dateTextView.text = getCurrentDateWithFineFormatTomorrow()
+        dateFor = getCurrentDateTomorrow()
 
         viewModel.refreshSessionData()
 
@@ -56,8 +71,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         returnSection = findViewById(R.id.returnLayout)
 
 
+
         swipeRefresh.setOnRefreshListener{
             fillSpinners()
+
         }
 
         Handler().postDelayed({
@@ -68,6 +85,8 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
     private fun fillSpinners(){
+
+
 
         if (viewModel.busLocations.value?.status.equals("Success"))
         {
@@ -92,7 +111,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
             viewModel.idleArray = locationsId
 
-            fromSpinner = findViewById(R.id.fromSpinner)
+
             this.also { it.also { fromSpinner.onItemSelectedListener = it } }
 
             val aa = ArrayAdapter(this, android.R.layout.simple_spinner_item, locationsName)
@@ -100,8 +119,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             fromSpinner.adapter = aa
 
 
-
-            toSpinner = findViewById(R.id.toSpinner)
             this.also { it.also { toSpinner.onItemSelectedListener = it } }
 
             val bb = ArrayAdapter(this, android.R.layout.simple_spinner_item, locationsName)
@@ -109,7 +126,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             toSpinner.adapter = bb
 
 
-            flightFromSpinner = findViewById(R.id.flightFromSpinner)
+
             this.also { it.also { flightFromSpinner.onItemSelectedListener = it } }
 
             val aaf = ArrayAdapter(this, android.R.layout.simple_spinner_item, locationsName)
@@ -118,12 +135,18 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
 
 
-            flightToSpinner = findViewById(R.id.flightToSpinner)
             this.also { it.also { flightToSpinner.onItemSelectedListener = it } }
 
             val bbf = ArrayAdapter(this, android.R.layout.simple_spinner_item, locationsName)
             bb.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             flightToSpinner.adapter = bbf
+
+
+
+
+            fromSpinner.setSelection(preference.getInt("from",0))
+            toSpinner.setSelection(preference.getInt("to",3))
+            dateTextView.text=preference.getString("date","Tarihi Seçimi Yapınız")
 
         }
         else{
@@ -148,13 +171,24 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     intent.putExtra("originId", it)
                     intent.putExtra("destinationId", it1)
                     intent.putExtra("date", dateFor)
+                    intent.putExtra("stops", fromSpinner.selectedItem.toString()+" - "+ toSpinner.selectedItem.toString())
+                    intent.putExtra("showDate", dateTextView.text.toString())
+
+
+
+                    val editor=preference.edit()
+                    editor.putString("date",dateTextView.text.toString())
+                    editor.putInt("from",fromSpinner.selectedItemPosition)
+                    editor.putInt("to",toSpinner.selectedItemPosition)
+                    editor.commit()
+
                     startActivity(intent)
 
                 }
             }
         }
         else{
-            Toast.makeText(this,"Aynı yerden aynı yere gidemezsiniz!", Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"Aynı yerler arası seyahat mümkün değildir!", Toast.LENGTH_LONG).show()
         }
 
     }
@@ -190,7 +224,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
     fun flightSection(view: View) {
-        println("plane kanka")
         swipeRefresh.visibility = View.GONE
         swipeRefreshFlight.visibility = View.VISIBLE
     }

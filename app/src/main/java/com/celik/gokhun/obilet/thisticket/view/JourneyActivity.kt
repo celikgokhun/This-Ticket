@@ -7,14 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.celik.gokhun.obilet.thisticket.R
 import com.celik.gokhun.obilet.thisticket.model.BusJourneysData
+import com.celik.gokhun.obilet.thisticket.util.getCurrentDateWithFineFormatTomorrow
 import com.celik.gokhun.obilet.thisticket.viewmodel.ViewModel
 import kotlinx.android.synthetic.main.activity_journey.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.journey_item.view.*
 import java.lang.NullPointerException
 
@@ -28,15 +31,29 @@ class JourneyActivity : AppCompatActivity() {
 
     private lateinit var  swipeRefresh : SwipeRefreshLayout
 
+    private lateinit var stopsText : TextView
+    private lateinit var journeyDate : TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_journey)
+
+        stopsText = findViewById(R.id.stopsText)
+        journeyDate = findViewById(R.id.journeyDate)
 
         var sessionId : String? = intent.getStringExtra("sessionId")
         var deviceId : String? = intent.getStringExtra("deviceId")
         var originId : Int? = intent.getIntExtra("originId",0)
         var destinationId : Int? = intent.getIntExtra("destinationId",0)
         var date : String? = intent.getStringExtra("date")
+        var showDate : String? = intent.getStringExtra("showDate")
+
+        var stops : String? = intent.getStringExtra("stops")
+
+
+        journeyDate.text = showDate
+        stopsText.text = stops
+
 
         swipeRefresh = findViewById(R.id.swipeRefreshTickets)
 
@@ -55,9 +72,9 @@ class JourneyActivity : AppCompatActivity() {
             {
                 if (sessionId != null && deviceId != null && originId != null && destinationId != null && date != null) {
                     getPage(sessionId, deviceId, originId, destinationId, date)
+
                 }
-            },
-            2000)
+            },2000)
 
 
         swipeRefresh.setOnRefreshListener {
@@ -69,6 +86,8 @@ class JourneyActivity : AppCompatActivity() {
     }
 
     private fun getPage(sessionId: String, deviceId: String, originId: Int, destinationId: Int, date: String) {
+
+
         journeyList.clear()
         recyclerViewTicket.visibility= View.VISIBLE
         ticketLoading.visibility=View.GONE
@@ -102,6 +121,11 @@ class JourneyActivity : AppCompatActivity() {
 
             },2000)
         }
+    }
+
+    fun back(view:View)
+    {
+        onBackPressed()
     }
 
     class TicketAdapter(private val activity: JourneyActivity) : RecyclerView.Adapter<TicketAdapter.TicketViewHolder>(){

@@ -3,7 +3,6 @@ package com.celik.gokhun.obilet.thisticket.view
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -11,7 +10,6 @@ import android.view.View
 import android.widget.*
 import com.celik.gokhun.obilet.thisticket.R
 import android.widget.ArrayAdapter
-import androidx.annotation.ColorInt
 import androidx.lifecycle.ViewModelProviders
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.celik.gokhun.obilet.thisticket.util.getCurrentDate
@@ -19,7 +17,7 @@ import com.celik.gokhun.obilet.thisticket.util.getCurrentDateTomorrow
 import com.celik.gokhun.obilet.thisticket.util.getCurrentDateWithFineFormat
 import com.celik.gokhun.obilet.thisticket.util.getCurrentDateWithFineFormatTomorrow
 import com.celik.gokhun.obilet.thisticket.viewmodel.ViewModel
-import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
@@ -34,15 +32,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private lateinit var  swipeRefresh : SwipeRefreshLayout
     private lateinit var  swipeRefreshFlight : SwipeRefreshLayout
-
-    private lateinit var dateFor: String
-
     private lateinit var returnSection: LinearLayout
 
-
-
+    private lateinit var dateFor: String
     private lateinit var preference : SharedPreferences
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,19 +73,20 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         Handler().postDelayed({
             fillSpinners()},2000)
 
-
-
     }
 
     private fun fillSpinners(){
-
-
 
         if (viewModel.busLocations.value?.status.equals("Success"))
         {
             if (swipeRefresh.isRefreshing)
             {
                 swipeRefresh.isRefreshing = false
+            }
+
+            if (swipeRefreshFlight.isRefreshing)
+            {
+                swipeRefreshFlight.isRefreshing = false
             }
 
 

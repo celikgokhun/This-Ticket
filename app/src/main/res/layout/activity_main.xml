@@ -12,8 +12,7 @@
     >
 
     <RadioGroup
-            android:id="@+id/toggle"
-            android:layout_width="match_parent"
+        android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/control_switch_background_border"
             android:checkedButton="@+id/calm"
@@ -47,7 +46,6 @@
                 />
 
             <RadioButton
-                android:id="@+id/outbreak"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginTop="3dp"
@@ -94,7 +92,6 @@
                         android:orientation="vertical">
 
                         <LinearLayout
-                            android:id="@+id/fromLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -108,7 +105,6 @@
                                 android:src="@drawable/location_logo" />
 
                             <LinearLayout
-                                android:id="@+id/rootContainer"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="5"
@@ -130,7 +126,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@color/blue"
-                                    android:padding="5dp"
+                                    android:padding="10dp"
                                    />
 
                             </LinearLayout>
@@ -143,7 +139,7 @@
                             android:layout_gravity="end"
                             android:layout_marginEnd="30dp"
                             android:onClick="changeDirection"
-                            android:src="@drawable/change_logo"
+                            android:src="@drawable/swap"
                             app:backgroundTint="@color/white"
                             app:borderWidth="2sp">
 
@@ -183,7 +179,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@color/blue"
-                                    android:padding="5dp" />
+                                    android:padding="10dp" />
 
                             </LinearLayout>
 
@@ -240,32 +236,28 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:layout_gravity="center"
                             android:orientation="vertical">
 
                             <Button
-
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Bugün"
-                                android:layout_marginTop="5dp"
-                                android:textColor="@color/white"
-                                android:onClick="setToday"
                                 android:background="@drawable/today_bg"
+                                android:onClick="setToday"
+                                android:text="Bugün"
                                 android:textAllCaps="false"
-                                android:layout_weight="1"
-                                android:textSize="10sp"/>
+                                android:textColor="@color/white"
+                                android:textSize="10sp" />
 
                             <Button
 
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Yarın"
-                                android:layout_weight="1"
-                                android:textColor="@color/white"
                                 android:onClick="setTomorrow"
+                                android:text="Yarın"
                                 android:textAllCaps="false"
-                                android:textSize="10sp"
-                                />
+                                android:textColor="@color/white"
+                                android:textSize="10sp" />
                         </LinearLayout>
 
 
@@ -351,7 +343,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@color/blue"
-                                    android:padding="5dp"
+                                    android:padding="10dp"
                                     />
 
                             </LinearLayout>
@@ -364,14 +356,13 @@
                             android:layout_gravity="end"
                             android:layout_marginEnd="30dp"
                             android:onClick="changeDirection"
-                            android:src="@drawable/change_logo"
+                            android:src="@drawable/swap"
                             app:backgroundTint="@color/white"
                             app:borderWidth="2sp">
 
                         </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
                         <LinearLayout
-                            android:id="@+id/toLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -405,7 +396,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@color/blue"
-                                    android:padding="5dp" />
+                                    android:padding="10dp" />
 
                             </LinearLayout>
 

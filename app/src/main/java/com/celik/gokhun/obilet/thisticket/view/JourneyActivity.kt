@@ -145,7 +145,6 @@ class JourneyActivity : AppCompatActivity() {
                 holder.journeyAdapter.arrivalTimeText.text = activity.journeyList[position].journey?.arrival!!.split("T")[1].split(":")[0]+":"+activity.journeyList[position].journey?.arrival!!.split("T")[1].split(":")[1]
                 holder.journeyAdapter.originDestinationText.text = activity.journeyList[position].journey?.origin+" - "+activity.journeyList[position].journey?.destination
                 holder.journeyAdapter.priceText.text = activity.journeyList[position].journey?.internetPrice.toString()+" "+ activity.journeyList[position].journey?.currency
-
             }
             catch (npe: NullPointerException){npe.printStackTrace()}
         }

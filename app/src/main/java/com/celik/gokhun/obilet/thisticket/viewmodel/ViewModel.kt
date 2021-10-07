@@ -1,20 +1,15 @@
 package com.celik.gokhun.obilet.thisticket.viewmodel
 
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.celik.gokhun.obilet.thisticket.R
 import com.celik.gokhun.obilet.thisticket.model.BusJourneys
 import com.celik.gokhun.obilet.thisticket.model.BusLocations
 import com.celik.gokhun.obilet.thisticket.model.Session
 import com.celik.gokhun.obilet.thisticket.service.ObiletAPIService
-import com.celik.gokhun.obilet.thisticket.view.MainActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
-
 
 class ViewModel : ViewModel() {
 
@@ -187,13 +182,5 @@ class ViewModel : ViewModel() {
     private fun refreshBusLocationsData(sessionId: String, deviceId: String){
         getBusLocationsDataAPI(sessionId,deviceId)
     }
-
-
-
-
-
-
-
-
 
 }

@@ -1,5 +1,6 @@
 package com.celik.gokhun.obilet.thisticket.view
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -17,6 +18,9 @@ import com.celik.gokhun.obilet.thisticket.util.getCurrentDateTomorrow
 import com.celik.gokhun.obilet.thisticket.util.getCurrentDateWithFineFormat
 import com.celik.gokhun.obilet.thisticket.util.getCurrentDateWithFineFormatTomorrow
 import com.celik.gokhun.obilet.thisticket.viewmodel.ViewModel
+import kotlinx.android.synthetic.main.activity_main.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
@@ -36,6 +40,11 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private lateinit var dateFor: String
     private lateinit var preference : SharedPreferences
+
+
+
+    var calendarBus = Calendar.getInstance()
+    var calendarFlight = Calendar.getInstance()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,16 +72,64 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         swipeRefreshFlight = findViewById(R.id.swipeRefreshFlight)
         returnSection = findViewById(R.id.returnLayout)
 
-
-
         swipeRefresh.setOnRefreshListener{
             fillSpinners()
-
         }
 
         Handler().postDelayed({
             fillSpinners()},2000)
 
+    }
+
+    fun setDateBus(view : View){
+        DatePickerDialog(this@MainActivity,
+            dateSetListener,
+            // set DatePickerDialog to point to today's date when it loads up
+            calendarBus.get(Calendar.YEAR),
+            calendarBus.get(Calendar.MONTH),
+            calendarBus.get(Calendar.DAY_OF_MONTH),
+
+        ).show()
+
+    }
+
+    fun setDateFlight(view: View){
+        DatePickerDialog(this@MainActivity,
+            dateSetListenerFlight,
+            // set DatePickerDialog to point to today's date when it loads up
+            calendarFlight.get(Calendar.YEAR),
+            calendarFlight.get(Calendar.MONTH),
+            calendarFlight.get(Calendar.DAY_OF_MONTH),
+            ).show()
+    }
+
+    private val dateSetListenerFlight = object : DatePickerDialog.OnDateSetListener {
+        override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int) {
+            calendarFlight.set(Calendar.YEAR, year)
+            calendarFlight.set(Calendar.MONTH, monthOfYear)
+            calendarFlight.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            updateDateInFlightView()
+        }
+    }
+
+    private fun updateDateInFlightView() {
+        dayNumberFlight.text = calendarFlight.get(Calendar.DAY_OF_MONTH).toString()
+        //mounthFlight.text = calendarFlight.get(Calendar.MONTH).toString()
+        //dayFlight.text = calendarFlight.get(Calendar.DAY_OF_WEEK).toString()
+    }
+
+    private val dateSetListener = object : DatePickerDialog.OnDateSetListener {
+        override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int) {
+            calendarBus.set(Calendar.YEAR, year)
+            calendarBus.set(Calendar.MONTH, monthOfYear)
+            calendarBus.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            updateDateInBusView()
+        }
+    }
+
+    private fun updateDateInBusView() {
+        val sdf = SimpleDateFormat("dd MM yyyy EE")
+        dateTextView.text = sdf.format(calendarBus.getTime())
     }
 
     private fun fillSpinners(){
@@ -96,8 +153,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             val locationsName = arrayOfNulls<String?>(locationSize)
             val locationsId = arrayOfNulls<Int?>(locationSize)
 
-            for (i in 0..locationSize-1){ ////////////////////// lan keko
-                //locationsNameId[i] = busLocations.value?.data?.get(i)?.name.toString() +"%"+ busLocations.value?.data?.get(i)?.id.toString()
+            for (i in 0..locationSize-1){
                 locationsName[i] = viewModel.busLocations.value?.data?.get(i)?.name.toString()
                 locationsId[i] = viewModel.busLocations.value?.data?.get(i)?.id.toString().toInt()
 
@@ -197,6 +253,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         dateFor = getCurrentDateTomorrow()
     }
 
+    fun addPassenger(view: View){
+        Toast.makeText(this, "Yolcu ekleme fonksiyonu pek yakında sizlerle", Toast.LENGTH_LONG).show()
+    }
+
     fun changeDirection(view: View){
         val idle :Int = fromSpinner.selectedItemPosition
         val idle2 :Int = toSpinner.selectedItemPosition
@@ -207,8 +267,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         flightToSpinner.setSelection(idle)
     }
 
-    fun removeReturn(view: View)
-    {
+    fun removeReturn(view: View) {
         returnSection.visibility =View.GONE
     }
 
@@ -220,6 +279,8 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     fun flightSection(view: View) {
         swipeRefresh.visibility = View.GONE
         swipeRefreshFlight.visibility = View.VISIBLE
+        returnSection.visibility = View.VISIBLE
+
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {

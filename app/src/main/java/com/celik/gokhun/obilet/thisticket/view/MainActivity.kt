@@ -200,7 +200,9 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         }
         else{
-            Toast.makeText(this,"Failed session",Toast.LENGTH_LONG).show()
+            //Toast.makeText(this,"Failed session",Toast.LENGTH_LONG).show()
+            Handler().postDelayed({
+                fillSpinners()},1000)
         }
 
 
